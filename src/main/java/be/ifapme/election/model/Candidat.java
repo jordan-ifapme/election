@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Candidat {
     @EmbeddedId
     private CandidatId id;
@@ -27,8 +28,7 @@ public class Candidat {
     @JoinColumn(name = "partit_id")
     private Partit partit;
 
-    @ColumnDefault("0")
     @Column(name = "vote")
-    private Integer vote;
+    private Integer vote = 0;
 
 }
