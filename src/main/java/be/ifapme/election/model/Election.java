@@ -1,9 +1,6 @@
 package be.ifapme.election.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -12,8 +9,10 @@ import org.hibernate.annotations.ColumnDefault;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Election {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ColumnDefault("nextval('election_id_seq'")
     @Column(name = "id", nullable = false)
     private Integer id;
