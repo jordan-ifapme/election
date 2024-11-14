@@ -9,8 +9,10 @@ import org.hibernate.annotations.ColumnDefault;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Personne {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ColumnDefault("nextval('personne_id_seq'")
     @Column(name = "id", nullable = false)
     private Integer id;
