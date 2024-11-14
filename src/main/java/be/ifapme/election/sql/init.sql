@@ -11,7 +11,7 @@ CREATE TABLE personne (
                           nom VARCHAR(255),
                           prenom VARCHAR(255),
                           registre_national VARCHAR(20) UNIQUE,
-                          adresse_id INT REFERENCES adresse(id),
+                          adresse_id INT REFERENCES adresse(id)
 );
 
 CREATE TABLE partit (
