@@ -28,8 +28,4 @@ public class Personne {
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 
-    @ColumnDefault("false")
-    @Column(name = "est_electeur")
-    private Boolean estElecteur;
-
 }

@@ -12,7 +12,6 @@ CREATE TABLE personne (
                           prenom VARCHAR(255),
                           registre_national VARCHAR(20) UNIQUE,
                           adresse_id INT REFERENCES adresse(id),
-                          est_electeur BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE partit (
