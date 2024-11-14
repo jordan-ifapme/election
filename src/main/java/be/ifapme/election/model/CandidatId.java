@@ -12,6 +12,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CandidatId implements Serializable {
     private static final long serialVersionUID = -4113268659772947585L;
     @Column(name = "personne_id", nullable = false)
