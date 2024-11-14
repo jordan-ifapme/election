@@ -21,9 +21,9 @@ public class ElectionServiceImpl implements ElectionService {
         Election election = Election.builder()
                 .nom(command.getNom())
                 .build();
-        Election createElection = repository.save(election);
+        Election createdElection = repository.save(election);
         return ModelMapperUtils
                 .getInstance()
-                .map(election, ElectionDto.class);
+                .map(createdElection, ElectionDto.class);
     }
 }
