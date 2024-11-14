@@ -1,9 +1,6 @@
 package be.ifapme.election.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -12,9 +9,11 @@ import org.hibernate.annotations.ColumnDefault;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Partit {
     @Id
-    @ColumnDefault("nextval('partit_id_seq'")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "partit_id_seq")
+    @SequenceGenerator(name = "partit_id_seq", sequenceName = "partit_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -23,5 +22,4 @@ public class Partit {
 
     @Column(name = "couleur", length = 50)
     private String couleur;
-
 }
