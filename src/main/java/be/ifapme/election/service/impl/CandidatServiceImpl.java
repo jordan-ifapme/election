@@ -47,9 +47,12 @@ public class CandidatServiceImpl implements CandidatService {
         Candidat candidat = Candidat.builder()
                 .partit(partit)
                 .id(candidatId)
+                .personne(personne)
+                .election(election)
                 .vote(0)
                 .build();
         Candidat createCandidat = candidatRepository.save(candidat);
+        System.out.println(ModelMapperUtils.getInstance().map(createCandidat , CandidatDto.class).toString());
         return ModelMapperUtils.getInstance().map(createCandidat, CandidatDto.class);
     }
 
