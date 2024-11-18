@@ -15,15 +15,13 @@ public class Vote {
     private VoteId id;
 
     @MapsId("personneId")
-    @JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "personne_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personne_id")
     private Personne personne;
 
     @MapsId("electionId")
-    @JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "election_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "election_id")
     private Election election;
 
 }
