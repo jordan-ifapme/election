@@ -20,6 +20,7 @@ public class VoteId implements Serializable {
     @Column(name = "election_id", nullable = false)
     private Integer electionId;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -34,4 +35,19 @@ public class VoteId implements Serializable {
         return Objects.hash(electionId, personneId);
     }
 
+    public void setPersonneId(Integer personneId) {
+        this.personneId = personneId;
+    }
+
+    public void setElectionId(Integer electionId) {
+        this.electionId = electionId;
+    }
+
+    public Integer getPersonneId() {
+        return personneId;
+    }
+
+    public Integer getElectionId() {
+        return electionId;
+    }
 }

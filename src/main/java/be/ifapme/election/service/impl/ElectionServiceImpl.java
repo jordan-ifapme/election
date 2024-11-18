@@ -10,10 +10,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ElectionServiceImpl implements ElectionService {
-    private ElectionRepository repository;
+    private final ElectionRepository electionRepository;
 
-    public ElectionServiceImpl(ElectionRepository repository) {
-        this.repository = repository;
+
+    public ElectionServiceImpl( ElectionRepository electionRepository) {
+
+        this.electionRepository = electionRepository;
+    }
+
+    @Override
+    public Election findById(Integer id){
+        return electionRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -21,7 +28,7 @@ public class ElectionServiceImpl implements ElectionService {
         Election election = Election.builder()
                 .nom(command.getNom())
                 .build();
-        Election createdElection = repository.save(election);
+        Election createdElection = electionRepository.save(election);
         return ModelMapperUtils
                 .getInstance()
                 .map(createdElection, ElectionDto.class);
