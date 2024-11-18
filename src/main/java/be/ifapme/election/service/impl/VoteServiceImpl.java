@@ -1,5 +1,7 @@
 package be.ifapme.election.service.impl;
 
+import be.ifapme.election.Exception.AlreadyVotedException;
+import be.ifapme.election.Exception.BusinessException;
 import be.ifapme.election.command.CreateVoteCommand;
 import be.ifapme.election.dto.VoteDto;
 import be.ifapme.election.model.Election;
@@ -29,13 +31,20 @@ public class VoteServiceImpl implements VoteService {
 
 
     @Override
-    public VoteDto createvote(CreateVoteCommand command) {
+    public VoteDto createvote(CreateVoteCommand command) throws BusinessException {
         Personne personne = personService.findById(command.getPersonneId());
         Election election = electionService.findById(command.getElectionId());
+
 
         VoteId voteId = new VoteId();
         voteId.setPersonneId(command.getPersonneId());
         voteId.setElectionId(command.getElectionId());
+
+        Vote aDejaVote = voteRepository.findById(voteId).orElse(null);
+
+        if(aDejaVote != null){
+            throw new AlreadyVotedException();
+        }
 
         Vote createvote = Vote.builder()
                 .id(voteId)
