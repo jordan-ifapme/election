@@ -1,6 +1,5 @@
 package be.ifapme.election.command;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

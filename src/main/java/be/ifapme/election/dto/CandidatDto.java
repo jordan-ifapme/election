@@ -11,4 +11,13 @@ public class CandidatDto {
     private Election election;
     private Partit partit;
     private Integer vote;
+    @Override
+    public String toString() {
+        return "CandidatDto{" +
+                "personne=" + personne +
+                ", election=" + election +
+                ", partit=" + partit +
+                ", vote=" + vote +
+                '}';
+    }
 }
