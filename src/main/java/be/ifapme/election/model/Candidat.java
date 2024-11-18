@@ -1,5 +1,8 @@
 package be.ifapme.election.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -11,6 +14,7 @@ import org.hibernate.annotations.ColumnDefault;
 @NoArgsConstructor
 @Builder
 public class Candidat {
+
     @EmbeddedId
     private CandidatId id;
 
@@ -24,7 +28,7 @@ public class Candidat {
     @JoinColumn(name = "election_id")
     private Election election;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "partit_id")
     private Partit partit;
 
