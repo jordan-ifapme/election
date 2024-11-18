@@ -5,15 +5,15 @@ import jakarta.persistence.Embeddable;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CandidatId implements Serializable {
+@Embeddable
+public class CandidatId implements java.io.Serializable {
     private static final long serialVersionUID = -4113268659772947585L;
     @Column(name = "personne_id", nullable = false)
     private Integer personneId;

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CandidatIdDto {
-    private Integer electionId;
     private Integer personneId;
+    private Integer electionId;
 }
