@@ -6,7 +6,6 @@ import be.ifapme.election.model.Partit;
 import be.ifapme.election.repository.PartiRepository;
 import be.ifapme.election.service.PartiService;
 import be.ifapme.election.utils.ModelMapperUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service

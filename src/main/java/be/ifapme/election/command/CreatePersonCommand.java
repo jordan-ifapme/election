@@ -1,8 +1,9 @@
 package be.ifapme.election.command;
 
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter // pour le generator
 @Getter
 public class CreatePersonCommand {
     private String nom;
