@@ -15,13 +15,13 @@ public class Candidat {
     private CandidatId id;
 
     @MapsId("personneId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "personne_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personne_id")
     private Personne personne;
 
     @MapsId("electionId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "election_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "election_id")
     private Election election;
 
     @ManyToOne(fetch = FetchType.LAZY)

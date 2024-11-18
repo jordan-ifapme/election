@@ -47,8 +47,6 @@ public class CandidatServiceImpl implements CandidatService {
         Candidat candidat = Candidat.builder()
                 .partit(partit)
                 .id(candidatId)
-                .personne(personne)
-                .election(election)
                 .vote(0)
                 .build();
         Candidat createCandidat = candidatRepository.save(candidat);

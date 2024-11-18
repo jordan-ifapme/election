@@ -1,5 +1,6 @@
 package be.ifapme.election.dto;
 
+import be.ifapme.election.model.CandidatId;
 import be.ifapme.election.model.Election;
 import be.ifapme.election.model.Partit;
 import be.ifapme.election.model.Personne;
@@ -7,6 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class CandidatDto {
+    private CandidatId id;
     private Personne personne;
     private Election election;
     private Partit partit;
@@ -14,6 +16,7 @@ public class CandidatDto {
     @Override
     public String toString() {
         return "CandidatDto{" +
+                "id=" + id +
                 "personne=" + personne +
                 ", election=" + election +
                 ", partit=" + partit +
