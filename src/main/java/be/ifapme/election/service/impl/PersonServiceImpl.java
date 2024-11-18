@@ -22,6 +22,10 @@ public class PersonServiceImpl implements PersonService {
         this.personRepository = personRepository;
         this.adresseRepository = adresseRepository;
     }
+    @Override
+    public Personne findById(Integer id) {
+        return personRepository.findById(id).orElse(null);
+    }
 
     @Override
     public PersonDto createPerson(CreatePersonCommand command) throws BusinessException {

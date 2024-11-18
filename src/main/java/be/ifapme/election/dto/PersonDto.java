@@ -11,5 +11,5 @@ public class PersonDto {
     private String nom;
     private String prenom;
     private String registreNational;
-    private Adresse adresse;
+    private AdresseDto adresse;
 }
