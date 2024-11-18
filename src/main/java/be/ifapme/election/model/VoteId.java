@@ -20,18 +20,18 @@ public class VoteId implements Serializable {
     @Column(name = "election_id", nullable = false)
     private Integer electionId;
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        VoteId entity = (VoteId) o;
-//        return Objects.equals(this.electionId, entity.electionId) &&
-//                Objects.equals(this.personneId, entity.personneId);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(electionId, personneId);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        VoteId entity = (VoteId) o;
+        return Objects.equals(this.electionId, entity.electionId) &&
+                Objects.equals(this.personneId, entity.personneId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(electionId, personneId);
+    }
 
 }
