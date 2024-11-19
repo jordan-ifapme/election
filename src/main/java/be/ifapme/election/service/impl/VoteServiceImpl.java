@@ -53,7 +53,7 @@ public class VoteServiceImpl implements VoteService {
         Vote aDejaVote = voteRepository.findById(voteId).orElse(null);
 
         if(aDejaVote != null){
-            throw new AlreadyVotedException();
+            throw new AlreadyVotedException(personne.getNom(), personne.getPrenom());
         }
 
         aEteVote.setVote(aEteVote.getVote() + 1);
