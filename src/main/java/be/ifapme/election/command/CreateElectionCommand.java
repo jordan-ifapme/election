@@ -6,6 +6,6 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CreateElectionCommand {
-    String nom;
-    LocalDateTime date_limite;
+    private String nom;
+    private LocalDateTime dateLimite;
 }

@@ -21,6 +21,6 @@ public class Election {
     @Column(name = "nom")
     private String nom;
 
-    private LocalDateTime date_limite;
+    private LocalDateTime dateLimite;
 
 }

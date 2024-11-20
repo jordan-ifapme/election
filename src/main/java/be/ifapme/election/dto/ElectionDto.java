@@ -8,5 +8,5 @@ import java.time.LocalDateTime;
 public class ElectionDto {
     private Integer id;
     private String nom;
-    private LocalDateTime date_limite;
+    private LocalDateTime dateLimite;
 }
