@@ -1,5 +1,6 @@
 package be.ifapme.election.controller;
 
+import be.ifapme.election.Exception.BusinessException;
 import be.ifapme.election.command.CreateVoteCommand;
 import be.ifapme.election.dto.VoteDto;
 import be.ifapme.election.service.VoteService;
@@ -16,7 +17,7 @@ public class VoteController {
         this.voteService = voteService;
     }
     @PostMapping
-    public VoteDto vote(@RequestBody CreateVoteCommand command) {
+    public VoteDto vote(@RequestBody CreateVoteCommand command) throws BusinessException {
         return voteService.createvote(command);
     }
 }
