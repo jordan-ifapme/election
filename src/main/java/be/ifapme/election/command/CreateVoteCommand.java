@@ -6,4 +6,5 @@ import lombok.Getter;
 public class CreateVoteCommand {
     private Integer personneId;
     private Integer electionId;
+    private Integer candidatId;
 }
