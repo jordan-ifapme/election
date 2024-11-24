@@ -1,8 +1,6 @@
 package be.ifapme.election.service.impl;
 
-import be.ifapme.election.Exception.AlreadyVotedException;
-import be.ifapme.election.Exception.BusinessException;
-import be.ifapme.election.Exception.CandidatNotFoundException;
+import be.ifapme.election.Exception.*;
 import be.ifapme.election.command.CreateVoteCommand;
 import be.ifapme.election.dto.VoteDto;
 import be.ifapme.election.model.*;
@@ -50,8 +48,18 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public VoteDto createvote(CreateVoteCommand command) throws BusinessException {
-        Personne personne = personService.findById(command.getPersonneId());
         Election election = electionService.findById(command.getElectionId());
+        // modif pour faire une une verification
+        if (election == null) {
+            throw new ElectionNotFoundException(command.getElectionId());
+        }
+
+        Personne personne = personService.findById(command.getPersonneId());
+        // modif pour faire une une verification
+        if (personne == null) {
+            throw new PersonneNotFoundException(command.getPersonneId());
+        }
+
 
         VoteId voteId = new VoteId();
         voteId.setPersonneId(command.getPersonneId());
@@ -92,6 +100,14 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public ResponseEntity<String> votejson() throws BusinessException {
+        /*
+        * TODO
+        * - faut t'il a chaque fois vider ltable des erreurs a chaque lanncement ?
+        * a faire
+        * - cree un json des donnée qui sont en erreur
+        * a chaque lancement il faut refaire le fichier d'erreur ou pas ?
+        */
+
         Resource resource = resourceLoader.getResource(fichierJson);
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -117,6 +133,7 @@ public class VoteServiceImpl implements VoteService {
                     ErreurJson erreurJson = new ErreurJson();
                     erreurJson.setNomFichier(fichierJson);
                     erreurJson.setMessageErreur(e.getMessage());
+                    erreurJson.setJson("Ligne du fichier qui passe pas");
                     erreurJsonRepository.save(erreurJson);
 
                     // Modifier le message et le statut HTTP en cas d'erreur

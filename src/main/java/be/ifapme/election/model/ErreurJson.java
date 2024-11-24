@@ -25,6 +25,9 @@ public class ErreurJson {
     @Column(name = "nom_fichier")
     private String nomFichier;
 
+    @Column(name = "json")
+    private String json;
+
     @Column(name = "message_erreur")
     private String messageErreur;
 
