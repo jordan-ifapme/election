@@ -3,23 +3,27 @@ package be.ifapme.election.service.impl;
 import be.ifapme.election.Exception.AlreadyVotedException;
 import be.ifapme.election.Exception.BusinessException;
 import be.ifapme.election.Exception.CandidatNotFoundException;
+import be.ifapme.election.Exception.ElectionFinishedException;
 import be.ifapme.election.command.CreateVoteCommand;
 import be.ifapme.election.dto.VoteDto;
 import be.ifapme.election.model.*;
 import be.ifapme.election.repository.CandidatRepository;
+import be.ifapme.election.repository.ElectionRepository;
 import be.ifapme.election.repository.ErreurJsonRepository;
 import be.ifapme.election.repository.VoteRepository;
 import be.ifapme.election.service.ElectionService;
 import be.ifapme.election.service.PersonService;
 import be.ifapme.election.service.VoteService;
 import be.ifapme.election.utils.ModelMapperUtils;
+import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +34,7 @@ public class VoteServiceImpl implements VoteService {
     private final PersonService personService;
     private final ElectionService electionService;
     private final CandidatRepository candidatRepository;
+    private final ElectionRepository electionRepository;
 
     @Value("${chemin.fichier.json.election}")
     private String fichierJson;
@@ -38,13 +43,14 @@ public class VoteServiceImpl implements VoteService {
     private final ErreurJsonRepository erreurJsonRepository;
 
 
-    public VoteServiceImpl(VoteRepository voteRepository, PersonService personService, ElectionService electionService, CandidatRepository candidatRepository, ResourceLoader resourceLoader, ErreurJsonRepository erreurJsonRepository) {
+    public VoteServiceImpl(VoteRepository voteRepository, PersonService personService, ElectionService electionService, CandidatRepository candidatRepository, ResourceLoader resourceLoader, ErreurJsonRepository erreurJsonRepository, ElectionRepository electionRepository) {
         this.voteRepository = voteRepository;
         this.personService = personService;
         this.electionService = electionService;
         this.candidatRepository = candidatRepository;
         this.resourceLoader = resourceLoader;
         this.erreurJsonRepository = erreurJsonRepository;
+        this.electionRepository = electionRepository;
     }
 
 
@@ -62,10 +68,17 @@ public class VoteServiceImpl implements VoteService {
         candidatId.setPersonneId(command.getCandidatId());
 
         Candidat aEteVote = candidatRepository.findById(candidatId).orElse(null);
+        Election electionCourrante = electionRepository.findById(command.getElectionId()).orElse(null);
+        if(command.getDateVote() == null){
+            command.setDateVote(LocalDateTime.now());
+        }
+        if(electionCourrante.getDateLimite().isBefore(command.getDateVote())) {
+            throw new ElectionFinishedException(command.getElectionId(), electionCourrante.getDateLimite());
+        }
+
         if (aEteVote == null) {
             throw new CandidatNotFoundException(candidatId.getPersonneId());
         }
-
 
         Vote aDejaVote = voteRepository.findById(voteId).orElse(null);
 
