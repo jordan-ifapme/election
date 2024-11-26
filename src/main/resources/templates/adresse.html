@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter une adresse</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Ajouter une adresse</h1>
+
+    <!-- Afficher un message de succès -->
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
+    <!-- Formulaire -->
+    <form th:action="@{/postForm}" th:object="${createAdresseCommand}" method="post" class="mt-4">
+        <!-- Champ Localité -->
+        <div class="mb-3">
+            <label for="localite" class="form-label">Localité</label>
+            <input required type="text" id="localite" class="form-control" th:field="*{localite}" placeholder="Entrez la localité">
+        </div>
+
+        <!-- Champ Code Postal -->
+        <div class="mb-3">
+            <label for="codePostal" class="form-label">Code Postal</label>
+            <input required type="text" id="codePostal" class="form-control" th:field="*{codePostal}" placeholder="Entrez le code postal">
+        </div>
+
+        <!-- Champ Rue -->
+        <div class="mb-3">
+            <label for="rue" class="form-label">Rue</label>
+            <input required type="text" id="rue" class="form-control" th:field="*{rue}" placeholder="Entrez la rue">
+        </div>
+
+        <!-- Champ Boîte -->
+        <div class="mb-3">
+            <label for="boite" class="form-label">Boîte</label>
+            <input type="text" id="boite" class="form-control" th:field="*{boite}" placeholder="Entrez la boîte">
+        </div>
+
+        <!-- Bouton d'envoi -->
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+
+    <!-- Afficher les données soumises -->
+    <div class="mt-5" th:if="${createAdresseCommand.localite != null && createAdresseCommand.codePostal != null
+            && !createAdresseCommand.rue != null && !createAdresseCommand.boite == null}">
+
+        <h3>Données soumises :</h3>
+        <p>
+            <strong>Localité :</strong> <span th:text="${createAdresseCommand.localite}"></span>
+        </p>
+        <p>
+            <strong>Code Postal :</strong> <span th:text="${createAdresseCommand.codePostal}"></span>
+        </p>
+        <p>
+            <strong>Rue :</strong> <span th:text="${createAdresseCommand.rue}"></span>
+        </p>
+        <p>
+            <strong>Boîte :</strong> <span th:text="${createAdresseCommand.boite}"></span>
+        </p>
+    </div>
+</div>
+</body>
+</html>
