@@ -4,6 +4,7 @@
     <title>Accueil</title>
 </head>
 <body>
-    <h1 th:text="${message}"></h1>
+<h1 th:text="#{welcome.message}"></h1>
+<p th:text="${message}">Message par défaut</p>
 </body>
 </html>
