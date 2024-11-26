@@ -1,20 +1,24 @@
 package be.ifapme.election.utils;
 
 
+import be.ifapme.election.model.Election;
+import be.ifapme.election.model.Personne;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.opencsv.CSVWriter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.List;
 
 public class CreateFile {
+
+    private static final String filePath = "file/";
 
     private static <T> String createFileName(List<T> objects) throws IllegalAccessException {
 
@@ -51,7 +55,7 @@ public class CreateFile {
             }
         }
 
-        FileOutputStream out = new FileOutputStream(createFileName(objects) + ".xlsx");
+        FileOutputStream out = new FileOutputStream(filePath + createFileName(objects) + ".xlsx");
         workbook.write(out);
         out.close();
 
@@ -65,7 +69,7 @@ public class CreateFile {
 
         Class<?> clazz = objects.getFirst().getClass();
         Field[] fields = clazz.getDeclaredFields();
-        File file = new File(createFileName(objects) + ".csv");
+        File file = new File(filePath + createFileName(objects) + ".csv");
         FileWriter outputFile = new FileWriter(file);
 
         CSVWriter writer = new CSVWriter(outputFile);
@@ -85,5 +89,11 @@ public class CreateFile {
             writer.writeNext(data);
         }
         writer.close();
+    }
+
+    public static Document createPDF(Election election, Personne personne) throws FileNotFoundException, DocumentException {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(filePath + election.getNom() + " - " + personne.getNom() + ".pdf"));
+        return document;
     }
 }
