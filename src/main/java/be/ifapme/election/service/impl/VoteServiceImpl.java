@@ -9,6 +9,7 @@ import be.ifapme.election.dto.VoteDto;
 import be.ifapme.election.model.*;
 import be.ifapme.election.repository.CandidatRepository;
 import be.ifapme.election.repository.ElectionRepository;
+import be.ifapme.election.repository.ErreurJsonRepository;
 import be.ifapme.election.repository.VoteRepository;
 import be.ifapme.election.service.ElectionService;
 import be.ifapme.election.service.PersonService;
@@ -71,8 +72,8 @@ public class VoteServiceImpl implements VoteService {
         if(command.getDateVote() == null){
             command.setDateVote(LocalDateTime.now());
         }
-        if(electionCourrante.getDate_limite().isBefore(command.getDateVote())) {
-            throw new ElectionFinishedException(command.getElectionId(), electionCourrante.getDate_limite());
+        if(electionCourrante.getDateLimite().isBefore(command.getDateVote())) {
+            throw new ElectionFinishedException(command.getElectionId(), electionCourrante.getDateLimite());
         }
 
         if (aEteVote == null) {
