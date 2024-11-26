@@ -24,7 +24,6 @@ public class VoteController {
 
     @GetMapping("/votesjson")
     public ResponseEntity<String> votesjson() throws BusinessException {
-
         return voteService.votejson();
     }
 
