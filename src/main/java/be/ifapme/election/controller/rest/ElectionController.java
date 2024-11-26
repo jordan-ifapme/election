@@ -1,4 +1,4 @@
-package be.ifapme.election.controller;
+package be.ifapme.election.controller.rest;
 
 import be.ifapme.election.command.CreateElectionCommand;
 import be.ifapme.election.dto.ElectionDto;
