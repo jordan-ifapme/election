@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulaire Partit</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Ajouter un Partit</h1>
+
+    <!-- Afficher un message de succès -->
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
+    <!-- Formulaire -->
+    <form th:action="@{/view/partit/formulaire}" th:object="${CreatePartiCommand}" method="post" class="mt-4">
+        <!-- Champ Nom -->
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom du partit</label>
+            <input required type="text" id="nom" class="form-control" th:field="*{nom}" placeholder="Entrez le nom du partit">
+        </div>
+
+        <!-- Champ couleur -->
+        <div class="mb-3">
+            <label for="couleur" class="form-label">Couleur</label>
+            <input required type="color" id="couleur" th:field="*{couleur}" name="colorPicker" value="#ff0000">
+            <p>Couleur sélectionnée : <span id="colorValue">#ff0000</span></p>
+        </div>
+
+        <script>
+            const colorPicker = document.getElementById('colorPicker');
+            const colorValue = document.getElementById('colorValue');
+
+            colorPicker.addEventListener('input', (event) => {
+                colorValue.textContent = event.target.value;
+            });
+        </script>
+
+        <!-- Bouton d'envoi -->
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+
+    <!-- Afficher les données soumises -->
+    <div class="mt-5" th:if="${partiDto != null && (partiDto.nom != null || partiDto.couleur != null)}">
+        <h3>Données soumises :</h3>
+
+        <p>
+            <strong>Nom :</strong> <span th:text="${partiDto.nom}"></span>
+        </p>
+        <p>
+            <strong>Couleur :</strong> <span th:text="${partiDto.couleur}"></span>
+        </p>
+    </div>
+</div>
+</body>
+</html>
