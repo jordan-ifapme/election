@@ -27,6 +27,7 @@ public class ElectionServiceImpl implements ElectionService {
     public ElectionDto create(CreateElectionCommand command) {
         Election election = Election.builder()
                 .nom(command.getNom())
+                .dateLimite(command.getDateLimite())
                 .build();
         Election createdElection = electionRepository.save(election);
         return ModelMapperUtils
