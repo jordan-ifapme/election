@@ -6,9 +6,10 @@ import be.ifapme.election.model.Election;
 import com.itextpdf.text.DocumentException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public interface ElectionService {
     Election findById(Integer id);
 
-    ElectionDto create(CreateElectionCommand command) throws DocumentException, FileNotFoundException;
+    ElectionDto create(CreateElectionCommand command) throws DocumentException, IOException;
 }

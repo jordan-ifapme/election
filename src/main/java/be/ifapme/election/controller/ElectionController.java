@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/election")
@@ -21,7 +22,7 @@ public class ElectionController {
     }
 
     @PostMapping
-    ElectionDto createElection(@RequestBody CreateElectionCommand command) throws DocumentException, FileNotFoundException {
+    ElectionDto createElection(@RequestBody CreateElectionCommand command) throws DocumentException, IOException {
         return electionService.create(command);
     }
 }

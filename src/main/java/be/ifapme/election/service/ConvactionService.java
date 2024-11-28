@@ -5,7 +5,8 @@ import be.ifapme.election.model.Personne;
 import com.itextpdf.text.DocumentException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public interface ConvactionService {
-    void createConvocation(Election election) throws DocumentException, FileNotFoundException;
+    void createConvocation(Election election) throws DocumentException, IOException;
 }

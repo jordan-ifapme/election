@@ -12,6 +12,7 @@ import com.itextpdf.text.DocumentException;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Service
 public class ElectionServiceImpl implements ElectionService {
@@ -30,7 +31,7 @@ public class ElectionServiceImpl implements ElectionService {
     }
 
     @Override
-    public ElectionDto create(CreateElectionCommand command) throws DocumentException, FileNotFoundException {
+    public ElectionDto create(CreateElectionCommand command) throws DocumentException, IOException {
         Election election = Election.builder()
                 .nom(command.getNom())
                 .build();
