@@ -7,4 +7,4 @@ ALTER TABLE personne
 ALTER COLUMN password TYPE VARCHAR(255) COLLATE "utf8_general_ci";
 
 -- 3. add colonne role
-ALTER TABLE personne ADD COLUMN role SMALLINT NOT NULL DEFAULT 0;
+ALTER TABLE personne ADD COLUMN is_admin SMALLINT NOT NULL DEFAULT 0;
