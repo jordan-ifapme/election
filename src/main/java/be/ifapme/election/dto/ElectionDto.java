@@ -9,4 +9,5 @@ public class ElectionDto {
     private Integer id;
     private String nom;
     private LocalDateTime dateLimite;
+    private String codePays;
 }

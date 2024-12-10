@@ -3,6 +3,7 @@ package be.ifapme.election.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,5 +23,8 @@ public class Election {
     private String nom;
 
     private LocalDateTime dateLimite;
+
+    @Column(name = "code_pays")
+    private String codePays;
 
 }

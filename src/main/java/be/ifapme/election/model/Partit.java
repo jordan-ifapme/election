@@ -12,8 +12,8 @@ import org.hibernate.annotations.ColumnDefault;
 @Builder
 public class Partit {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "partit_id_seq")
-    @SequenceGenerator(name = "partit_id_seq", sequenceName = "partit_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ColumnDefault("nextval('adresse_id_seq'")
     @Column(name = "id", nullable = false)
     private Integer id;
 
