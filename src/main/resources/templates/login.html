@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h2>Connexion</h2>
+<div th:if="${loginError}" style="color:red;">
+    Identifiants incorrects
+</div>
+<form th:action="@{/perform_login}" method="post">
+    <div>
+        <label>Numéro national <input type="text" name="NumeroNational"/></label>
+    </div>
+    <div>
+        <label>Mot de passe : <input type="password" name="password"/></label>
+    </div>
+    <div>
+        <input type="submit" value="Se connecter"/>
+    </div>
+</form>
+</body>
+</html>

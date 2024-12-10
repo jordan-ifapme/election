@@ -31,4 +31,9 @@ public class Personne {
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 
+    @Column(name= "password")
+    private String password;
+
+    @Column(name = "role")
+    private Boolean role;
 }
