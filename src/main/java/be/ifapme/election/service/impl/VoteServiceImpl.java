@@ -66,6 +66,9 @@ public class VoteServiceImpl implements VoteService {
             throw new PersonneNotFoundException(command.getPersonneId());
         }
 
+        if (!election.getCodePays().equalsIgnoreCase(personne.getAdresse().getCodePays())) {
+            throw new NotSameCodeException();
+        }
 
         VoteId voteId = new VoteId();
         voteId.setPersonneId(command.getPersonneId());
