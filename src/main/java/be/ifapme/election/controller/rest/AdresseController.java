@@ -1,5 +1,6 @@
-package be.ifapme.election.controller;
+package be.ifapme.election.controller.rest;
 
+import be.ifapme.election.Exception.BusinessException;
 import be.ifapme.election.command.CreateAdresseCommand;
 import be.ifapme.election.dto.AdresseDto;
 import be.ifapme.election.generator.AdresseGenerator;
@@ -22,13 +23,13 @@ public class AdresseController {
     }
 
     @PostMapping
-    public AdresseDto createAdresse(@RequestBody CreateAdresseCommand command) {
+    public AdresseDto createAdresse(@RequestBody CreateAdresseCommand command) throws BusinessException {
         return adresseService.createAdresse(command);
     }
 
     // pour la generation
     @PostMapping("/generate/{nbrs}")
-    public List<AdresseDto> generateRandomAdresses(@PathVariable int nbrs) {
+    public List<AdresseDto> generateRandomAdresses(@PathVariable int nbrs) throws BusinessException {
         return adresseService.generateRandomAdresses(nbrs);
     }
 }

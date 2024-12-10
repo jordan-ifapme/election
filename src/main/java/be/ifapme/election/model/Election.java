@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "election")
 @Data
@@ -19,5 +21,10 @@ public class Election {
 
     @Column(name = "nom")
     private String nom;
+
+    private LocalDateTime dateLimite;
+
+    @Column(name = "code_pays")
+    private String codePays;
 
 }

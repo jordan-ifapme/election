@@ -1,0 +1,2 @@
+
+ALTER TABLE erreur_json ADD COLUMN json TEXT NOT NULL;

@@ -10,4 +10,5 @@ public class CreateAdresseCommand {
     private String codePostal;
     private String rue;
     private String boite;
+    private String codePays;
 }

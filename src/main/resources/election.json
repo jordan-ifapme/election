@@ -1,0 +1,22 @@
+[
+  { "personne_id": 1, "election_id": 2, "candidat_id": 1 },
+  { "personne_id": 2, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 3, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 4, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 5, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 6, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 7, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 8, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 9, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 10, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 11, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 12, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 13, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 14, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 15, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 16, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 17, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 18, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 19, "election_id": 1, "candidat_id": 1  },
+  { "personne_id": 20, "election_id": 1, "candidat_id": 1  }
+]
