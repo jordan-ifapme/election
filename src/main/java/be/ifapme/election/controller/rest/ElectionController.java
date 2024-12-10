@@ -20,7 +20,7 @@ public class ElectionController {
     }
 
     @PostMapping
-    ElectionDto createElection(@RequestBody CreateElectionCommand command) throws BusinessException {
+   public ElectionDto createElection(@RequestBody CreateElectionCommand command) throws BusinessException {
         return electionService.create(command);
     }
 }
