@@ -1,7 +1,6 @@
 package be.ifapme.election.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class AdresseDto {
@@ -10,4 +9,5 @@ public class AdresseDto {
     private String codePostal;
     private String rue;
     private String boite;
+    private String codePays;
 }

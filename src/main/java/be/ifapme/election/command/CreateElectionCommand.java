@@ -8,4 +8,5 @@ import java.time.LocalDateTime;
 public class CreateElectionCommand {
     private String nom;
     private LocalDateTime dateLimite;
+    private String codePays;
 }
