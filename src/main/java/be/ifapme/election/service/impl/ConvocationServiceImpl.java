@@ -1,42 +1,57 @@
 package be.ifapme.election.service.impl;
 
+import be.ifapme.election.Exception.NotFoundCodeCountryException;
 import be.ifapme.election.model.Election;
+import be.ifapme.election.model.Pays;
 import be.ifapme.election.model.Personne;
 import be.ifapme.election.repository.PersonRepository;
 import be.ifapme.election.service.ConvactionService;
+import be.ifapme.election.service.CountryService;
 import be.ifapme.election.utils.CreateFile;
 import com.itextpdf.text.*;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 @Service
 public class ConvocationServiceImpl implements ConvactionService {
     private final PersonRepository personRepository;
+    private final CountryService countryService;
     private final Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
     private final Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private final Font paragraphFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
-    public ConvocationServiceImpl(PersonRepository personRepository) {
+    public ConvocationServiceImpl(PersonRepository personRepository, CountryService countryService) {
         this.personRepository = personRepository;
+        this.countryService = countryService;
     }
 
     @Override
-    public void createConvocation(Election election) throws DocumentException, IOException {
+    public void createConvocation(Election election) throws DocumentException, IOException, NotFoundCodeCountryException {
 
-        List<Personne> personnes = personRepository.findAll();
+        Pays pays = countryService.createPays(election.getCodePays());
+
+        String urlImage = pays.getUrlImage();
+
+        List<Personne> personnes = personRepository.findAllByAdresse_CodePaysIgnoreCase(election.getCodePays());
+
 
         for (Personne personne : personnes) {
             Document document = CreateFile.createPDF(election, personne);
             document.open();
-            addPicture(document, "https://www.its.be/sites/default/files/solution/1/Namur.jpeg", 75f, 75f, 0);
+            addEmptyLine(document, 4);
+            Paragraph paragraph = new Paragraph();
+            addPicture(document, urlImage, 75f, 75f,  paragraph , 450f , 750f );
+            addPicture(document, "https://www.its.be/sites/default/files/solution/1/Namur.jpeg", 75f, 75f,  paragraph , 50f , 750f);
+            document.add(paragraph);
             addInfoPerson(document, personne);
             addTitlePage(document, election);
             addObjectConvocation(document, "Nous vous invitons à venir voter");
             createBodyText(document, election.getNom());
-            addPicture(document, "https://t4.ftcdn.net/jpg/00/00/42/95/360_F_429547_YJTlwk2Ld5kYDAbtCUwFgzmatgUHEg.jpg", 100, 75, 400);
+            Paragraph paragraph2 = new Paragraph();
+            addPicture(document, "https://t4.ftcdn.net/jpg/00/00/42/95/360_F_429547_YJTlwk2Ld5kYDAbtCUwFgzmatgUHEg.jpg", 100, 75, paragraph2 , 450f , 250f);
+            document.add(paragraph2);
             document.close();
         }
     }
@@ -104,13 +119,11 @@ public class ConvocationServiceImpl implements ConvactionService {
 
     }
 
-    private void addPicture(Document document, String picture, float sizeX, float sizeY, int indentation) throws DocumentException, IOException {
-        Paragraph paragraph = new Paragraph();
+    private void addPicture(Document document, String picture, float sizeX, float sizeY, Paragraph paragraph , Float posX , Float posY) throws DocumentException, IOException {
         Image img = Image.getInstance(picture);
-        img.scaleAbsolute(sizeX, sizeY);
-        img.setScaleToFitHeight(true);
+        img.scaleToFit(sizeX, sizeY);
+        img.setAbsolutePosition(posX, posY);
         paragraph.add(img);
-        paragraph.setIndentationLeft(indentation);
-        document.add(paragraph);
+//        paragraph.setIndentationLeft(indentation);
     }
 }

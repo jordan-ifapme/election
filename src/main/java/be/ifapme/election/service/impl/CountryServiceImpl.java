@@ -43,7 +43,15 @@ public class CountryServiceImpl implements CountryService {
         String codeCountry = jsonNode.get("cca2").asText();
         String name = jsonNode.get("name").get("common").asText();
 
-        return Pays.builder().codePays(codeCountry).nom(name).build();
+        JsonNode nationalIcon = jsonNode.get("coatOfArms");
+
+        if (nationalIcon == null) {
+            nationalIcon = jsonNode.get("flags").get("png");
+        } else {
+            nationalIcon = nationalIcon.get("png");
+        }
+
+        return Pays.builder().codePays(codeCountry).nom(name).urlImage(nationalIcon.asText()).build();
     }
 
 }

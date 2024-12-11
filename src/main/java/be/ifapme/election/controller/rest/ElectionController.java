@@ -5,10 +5,13 @@ import be.ifapme.election.Exception.NotFoundCodeCountryException;
 import be.ifapme.election.command.CreateElectionCommand;
 import be.ifapme.election.dto.ElectionDto;
 import be.ifapme.election.service.ElectionService;
+import com.itextpdf.text.DocumentException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/election")
@@ -20,7 +23,7 @@ public class ElectionController {
     }
 
     @PostMapping
-   public ElectionDto createElection(@RequestBody CreateElectionCommand command) throws BusinessException {
+   public ElectionDto createElection(@RequestBody CreateElectionCommand command) throws BusinessException, DocumentException, IOException {
         return electionService.create(command);
     }
 }
