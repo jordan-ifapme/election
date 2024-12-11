@@ -19,4 +19,7 @@ public class Pays {
 
     @Column(name = "nom", nullable = false, length = Integer.MAX_VALUE)
     private String nom;
+
+    @Column(name = "url_image", nullable = false, length = Integer.MAX_VALUE)
+    private String urlImage;
 }
