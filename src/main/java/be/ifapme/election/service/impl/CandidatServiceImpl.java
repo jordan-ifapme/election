@@ -1,9 +1,6 @@
 package be.ifapme.election.service.impl;
 
-import be.ifapme.election.Exception.BusinessException;
-import be.ifapme.election.Exception.ElectionNotFoundException;
-import be.ifapme.election.Exception.PartitNotFoundException;
-import be.ifapme.election.Exception.PersonneNotFoundException;
+import be.ifapme.election.Exception.*;
 import be.ifapme.election.command.CreateCandidatCommand;
 import be.ifapme.election.dto.CandidatDto;
 import be.ifapme.election.model.*;
@@ -43,7 +40,13 @@ public class CandidatServiceImpl implements CandidatService {
         if (partit == null) {
             throw new PartitNotFoundException(command.getPartitId());
         }
+
+        if (candidatRepository.findByPersonneIdAndElectionId(command.getPersonneId(), command.getElectionId()).isPresent()) {
+            throw new CandidatAlreadyExistException();
+        }
+
         CandidatId candidatId = CandidatId.builder().electionId(election.getId()).personneId(personne.getId()).build();
+
         Candidat candidat = Candidat.builder()
                 .partit(partit)
                 .id(candidatId)
@@ -54,5 +57,4 @@ public class CandidatServiceImpl implements CandidatService {
         Candidat createCandidat = candidatRepository.save(candidat);
         return ModelMapperUtils.getInstance().map(createCandidat, CandidatDto.class);
     }
-
 }

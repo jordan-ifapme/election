@@ -10,4 +10,5 @@ public class PersonDto {
     private String prenom;
     private String registreNational;
     private AdresseDto adresse;
+    private String password;
 }

@@ -16,7 +16,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/login", "/login-error").permitAll()
-                        .requestMatchers("/admin*").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user*").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

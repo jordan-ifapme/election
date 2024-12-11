@@ -18,13 +18,13 @@ public class PersonViewController {
         this.personService = personService;
     }
 
-    @GetMapping("/view/person")
+    @GetMapping("admin/view/person")
     public String home(Model model) {
         model.addAttribute("personne", new CreatePersonCommand());
         return "person";
     }
 
-    @PostMapping("/view/person")
+    @PostMapping("admin/view/person")
     public String soumettreFormulaire(CreatePersonCommand personnne, Model model) throws BusinessException {
 
         PersonDto personDto = personService.createPerson(personnne);

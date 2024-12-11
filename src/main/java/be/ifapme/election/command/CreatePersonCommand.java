@@ -10,4 +10,5 @@ public class CreatePersonCommand {
     private String prenom;
     private String registreNational;
     private Integer adresseId;
+    private String password;
 }

@@ -11,6 +11,8 @@ import be.ifapme.election.repository.AdresseRepository;
 import be.ifapme.election.repository.PersonRepository;
 import be.ifapme.election.service.PersonService;
 import be.ifapme.election.utils.ModelMapperUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,11 +42,16 @@ public class PersonServiceImpl implements PersonService {
         if (adresse == null) {
             throw new AdressNotFoundException();
         }
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(command.getPassword());
+
         Personne person = Personne.builder()
                 .nom(command.getNom())
                 .prenom(command.getPrenom())
                 .registreNational(command.getRegistreNational())
                 .adresse(adresse)
+                .password(encodedPassword)
+                .is_admin(false)
                 .build();
         Personne personSaved = personRepository.save(person);
         return ModelMapperUtils

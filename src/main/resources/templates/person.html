@@ -11,7 +11,7 @@
 
         <h1 class="text-blue-500 text-2xl mb-10">Ajouter une personne</h1>
 
-        <form th:action="@{/view/person}" th:object="${personne}" method="post" class="mt-4">
+        <form th:action="@{/admin/view/person}" th:object="${personne}" method="post" class="mt-4">
             <div class="mb-3">
                 <label for="nom" class="form-label text-blue-500">Nom</label>
                 <input required type="text" id="nom" class="form-control" th:field="*{nom}" placeholder="Entrez le nom">
@@ -35,6 +35,13 @@
                        placeholder="Entrez l'adresse Id">
             </div>
 
+
+            <div class="mb-3">
+                <label for="password" class="form-label text-blue-500">Mot de passe</label>
+                <input required type="password" id="password" class="form-control" th:field="*{password}"
+                       placeholder="Entrez un mot de passe">
+            </div>
+
             <button type="submit"
                     class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Ajouter
@@ -43,7 +50,7 @@
         </form>
 
         <div class="mt-5"
-             th:if="${personDTO != null && (personDTO.nom != null || personDTO.prenom != null || personDTO.adresse != null ||personDTO.id != null ||personDTO.registreNational != null)}">
+             th:if="${personDTO != null && (personDTO.nom != null || personDTO.prenom != null || personDTO.adresse != null ||personDTO.id != null ||personDTO.registreNational != null || personDTO.pasword != null)}">
             <h3 class="text-center text-blue-500" th:text="${message}"></h3>
 
             <div class="flex justify-center">
