@@ -13,7 +13,7 @@
     <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
 
     <!-- Formulaire -->
-    <form th:action="@{/view/partit/formulaire}" th:object="${CreatePartiCommand}" method="post" class="mt-4">
+    <form th:action="@{/admin/view/partit/formulaire}" th:object="${CreatePartiCommand}" method="post" class="mt-4">
         <!-- Champ Nom -->
         <div class="mb-3">
             <label for="nom" class="form-label">Nom du partit</label>

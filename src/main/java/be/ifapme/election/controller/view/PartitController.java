@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "view/partit")
+@RequestMapping(value = "admin/view/partit")
 public class PartitController {
 
     private final PartiService partiService;
@@ -34,7 +34,7 @@ public class PartitController {
 
         model.addAttribute("CreatePartiCommand", new CreatePartiCommand());
 
-        model.addAttribute("message", "Personne ajoutée avec succès !");
+        model.addAttribute("message", "Partit ajouté avec succès !");
         model.addAttribute("partiDto", partiDto);
         return "partit";
     }

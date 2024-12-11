@@ -36,13 +36,13 @@ public class CandidatViewController {
         this.partiRepository = partiRepository;
     }
 
-    @GetMapping("view/candidat")
+    @GetMapping("admin/view/candidat")
     public String afficherFormulaire(Model model) {
         selectList(model);
         return "candidat";
     }
 
-    @PostMapping("/view/candidat")
+    @PostMapping("admin/view/candidat")
     public String createCandidat(CreateCandidatCommand candidat, Model model) throws BusinessException {
 
         CandidatDto candidatDto = candidatService.create(candidat);

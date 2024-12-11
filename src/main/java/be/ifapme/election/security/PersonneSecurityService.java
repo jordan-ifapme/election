@@ -24,7 +24,7 @@ public class PersonneSecurityService implements UserDetailsService {
 
         String role = "USER";
 
-        if(personne.getRole()) {
+        if(personne.getIs_admin()) {
             role = "ADMIN";
         }
 
