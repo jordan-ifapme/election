@@ -93,7 +93,9 @@ public class CreateFile {
 
     public static Document createPDF(Election election, Personne personne) throws FileNotFoundException, DocumentException {
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(filePath + election.getNom() + " - " + personne.getNom() + ".pdf"));
+        new File(election.getNom()).mkdirs();
+
+        PdfWriter.getInstance(document, new FileOutputStream( election.getNom() + "/" + personne.getNom() + ".pdf"));
         return document;
     }
 }

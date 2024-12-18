@@ -9,6 +9,7 @@ import be.ifapme.election.service.ConvactionService;
 import be.ifapme.election.service.CountryService;
 import be.ifapme.election.utils.CreateFile;
 import com.itextpdf.text.*;
+import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -111,7 +112,10 @@ public class ConvocationServiceImpl implements ConvactionService {
                                 
                 Théo et Nicolas
                 """;
-        Paragraph paragraph = new Paragraph(text, paragraphFont);
+        String html = "<html><head><title>First parse</title></head>"
+                + "<body><p>Parsed HTML into a doc.</p></body></html>";
+        org.jsoup.nodes.Document doc = Jsoup.parse(html);
+        Paragraph paragraph = new Paragraph(doc.text() , paragraphFont);
         paragraph.setIndentationLeft(25);
         paragraph.setIndentationRight(25);
 
