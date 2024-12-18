@@ -1,10 +1,10 @@
 package be.ifapme.election.command;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Setter // // pour le generator
-@Getter
+@Data
+@NoArgsConstructor
 public class CreateAdresseCommand {
     private String localite;
     private String codePostal;

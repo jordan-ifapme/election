@@ -1,2 +1,2 @@
 
-ALTER TABLE erreur_json ADD COLUMN json TEXT NOT NULL;
+ALTER TABLE public.erreur_json ADD COLUMN json TEXT NOT NULL;

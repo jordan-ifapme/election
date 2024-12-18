@@ -13,4 +13,6 @@ public interface PersonService {
     PersonDto createPerson(CreatePersonCommand person) throws BusinessException;
 
     List<PersonDto> generateRandomPersons(int nbrs) throws BusinessException;
+
+    Personne findByUserName(String username) throws BusinessException;
 }

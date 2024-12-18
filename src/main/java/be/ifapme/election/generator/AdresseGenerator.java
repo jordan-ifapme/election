@@ -9,7 +9,6 @@ public class AdresseGenerator {
 
     private final Random random = new Random();
 
-
     private String generateRandomLocalites() {
         String[] localites = {"Bruxelles", "Liège", "Namur", "Anvers", "Gand"};
         return localites[random.nextInt(localites.length)];
@@ -20,13 +19,12 @@ public class AdresseGenerator {
         return rues[random.nextInt(rues.length)];
     }
 
-
-
     public CreateAdresseCommand generateRandomAdresse() {
         CreateAdresseCommand command = new CreateAdresseCommand();
         command.setLocalite(generateRandomLocalites());
         command.setCodePostal(String.format("%04d", random.nextInt(10000)));
         command.setRue(generateRandomRues());
+        command.setCodePays("BE");
         command.setBoite("Boite " + (random.nextInt(250) + 1));
         return command;
     }

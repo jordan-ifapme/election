@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adresse</title>
+</head>
+<body>
+    <h1>Adresse formulaire</h1>
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
+    <form th:action="@{/view/adresse}" th:object="${createAdresseCommand}" method="post" class="mt-4">
+        <div class="mb-3">
+            <label for="rue" class="form-label">Rue</label>
+            <input required type="text" id="rue" class="form-control" th:field="*{rue}" placeholder="Entrez la rue">
+        </div>
+
+        <div class="mb-3">
+            <label for="boite" class="form-label">Boite</label>
+            <input required type="text" id="boite" class="form-control" th:field="*{boite}" placeholder="Entrez un numero de boite">
+        </div>
+
+        <div class="mb-3">
+            <label for="localite" class="form-label">Localite</label>
+            <input required type="text" id="localite" class="form-control" th:field="*{localite}" placeholder="Entrez une localite">
+        </div>
+
+        <div class="mb-3">
+            <label for="code-postal" class="form-label">Code postal</label>
+            <input required type="text" id="code-postal" class="form-control" th:field="*{codePostal}" placeholder="Entrez un code postal">
+        </div>
+
+        <div class="mb-3">
+            <label for="code-pays" class="form-label">Code pays</label>
+            <input required type="text" id="code-pays" class="form-control" th:field="*{codePays}" placeholder="Entrez un code pays">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+</body>
+</html>

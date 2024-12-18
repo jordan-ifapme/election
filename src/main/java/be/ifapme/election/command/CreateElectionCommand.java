@@ -1,10 +1,11 @@
 package be.ifapme.election.command;
 
-import lombok.Getter;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 
-@Getter
+@Data
 public class CreateElectionCommand {
     private String nom;
     private LocalDateTime dateLimite;

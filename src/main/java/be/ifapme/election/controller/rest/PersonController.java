@@ -27,8 +27,6 @@ public class PersonController {
         return personService.createPerson(person);
     }
 
-
-
     // generation de personne
     @PostMapping("/generate/{nbrs}")
     public List<PersonDto> generateRandomPersons(@PathVariable int nbrs) throws BusinessException {

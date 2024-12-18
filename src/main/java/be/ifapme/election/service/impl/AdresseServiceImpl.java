@@ -48,19 +48,14 @@ public class AdresseServiceImpl implements AdresseService {
 
 
 
-    // adresse aleatoire id
     @Transactional(readOnly = true)
-    public Integer getRandomAdresse() {
-        // Récupère tous les objets Adresse depuis la base de données
+    public Integer getRandomAdresseId() {
         List<Adresse> adresses = adresseRepository.findAll();
-
-        // Si aucune adresse n'existe, retourner null ou une valeur par défaut
         if (adresses.isEmpty()) {
-            return null;  // ou une valeur par défaut, selon le cas
+            return null;
         }
-
-        // Choisir une adresse aléatoire parmi celles récupérées
-        return random.nextInt(adresses.size());
+        int randomAdresseIndex = random.nextInt(adresses.size());
+        return adresses.get(randomAdresseIndex).getId();
     }
 
     @Override

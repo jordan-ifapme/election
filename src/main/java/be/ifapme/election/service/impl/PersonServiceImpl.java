@@ -69,4 +69,10 @@ public class PersonServiceImpl implements PersonService {
         }
         return persons;
     }
+
+    @Override
+    public Personne findByUserName(String username) throws BusinessException {
+        return personRepository.findByRegistreNational(username)
+                .orElse(null);
+    }
 }

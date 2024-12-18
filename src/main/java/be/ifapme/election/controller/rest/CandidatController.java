@@ -19,7 +19,7 @@ public class CandidatController {
     }
 
     @PostMapping
-    CandidatDto create(@RequestBody CreateCandidatCommand command) throws BusinessException {
+    public CandidatDto create(@RequestBody CreateCandidatCommand command) throws BusinessException {
         return candidatService.create(command);
     }
 }

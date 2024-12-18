@@ -1,8 +1,8 @@
 -- Supprimer la table si elle existe déjà
-DROP TABLE IF EXISTS erreur_json;
+DROP TABLE IF EXISTS public.erreur_json;
 
 -- Créer la table
-CREATE TABLE IF NOT EXISTS erreur_json (
+CREATE TABLE IF NOT EXISTS public.erreur_json (
     id SERIAL PRIMARY KEY, -- PostgreSQL utilise SERIAL pour l'auto-incrémentation
     nom_fichier VARCHAR(255) DEFAULT NULL,
     message_erreur VARCHAR(255) DEFAULT NULL,

@@ -1,14 +1,9 @@
 package be.ifapme.election.command;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDateTime;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class CreateVoteCommand {
-    private Integer personneId;
-    private Integer electionId;
-    private Integer candidatId;
-    private LocalDateTime dateVote;
+    private Integer candidatElectionId;
+    private Integer candidatPersonId;
 }

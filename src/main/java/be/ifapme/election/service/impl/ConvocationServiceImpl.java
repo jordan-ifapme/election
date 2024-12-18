@@ -43,15 +43,15 @@ public class ConvocationServiceImpl implements ConvactionService {
             document.open();
             addEmptyLine(document, 4);
             Paragraph paragraph = new Paragraph();
-            addPicture(document, urlImage, 75f, 75f,  paragraph , 450f , 750f );
-            addPicture(document, "https://www.its.be/sites/default/files/solution/1/Namur.jpeg", 75f, 75f,  paragraph , 50f , 750f);
+            addPicture(urlImage, 75f, 75f,  paragraph , 450f , 750f );
+            addPicture("https://www.its.be/sites/default/files/solution/1/Namur.jpeg", 75f, 75f,  paragraph , 50f , 750f);
             document.add(paragraph);
             addInfoPerson(document, personne);
             addTitlePage(document, election);
             addObjectConvocation(document, "Nous vous invitons à venir voter");
             createBodyText(document, election.getNom());
             Paragraph paragraph2 = new Paragraph();
-            addPicture(document, "https://t4.ftcdn.net/jpg/00/00/42/95/360_F_429547_YJTlwk2Ld5kYDAbtCUwFgzmatgUHEg.jpg", 100, 75, paragraph2 , 450f , 250f);
+            addPicture( "https://t4.ftcdn.net/jpg/00/00/42/95/360_F_429547_YJTlwk2Ld5kYDAbtCUwFgzmatgUHEg.jpg", 100, 75, paragraph2 , 450f , 250f);
             document.add(paragraph2);
             document.close();
         }
@@ -114,7 +114,7 @@ public class ConvocationServiceImpl implements ConvactionService {
                 """;
         String html = "<html><head><title>First parse</title></head>"
                 + "<body><p>Parsed HTML into a doc.</p></body></html>";
-        org.jsoup.nodes.Document doc = Jsoup.parse(html);
+        org.jsoup.nodes.Document doc = Jsoup.parse(text);
         Paragraph paragraph = new Paragraph(doc.text() , paragraphFont);
         paragraph.setIndentationLeft(25);
         paragraph.setIndentationRight(25);
@@ -123,11 +123,10 @@ public class ConvocationServiceImpl implements ConvactionService {
 
     }
 
-    private void addPicture(Document document, String picture, float sizeX, float sizeY, Paragraph paragraph , Float posX , Float posY) throws DocumentException, IOException {
+    private void addPicture(String picture, float sizeX, float sizeY, Paragraph paragraph , Float posX , Float posY) throws DocumentException, IOException {
         Image img = Image.getInstance(picture);
         img.scaleToFit(sizeX, sizeY);
         img.setAbsolutePosition(posX, posY);
         paragraph.add(img);
-//        paragraph.setIndentationLeft(indentation);
     }
 }

@@ -2,17 +2,16 @@ package be.ifapme.election.service.impl;
 
 import be.ifapme.election.Exception.*;
 import be.ifapme.election.Exception.ElectionFinishedException;
+import be.ifapme.election.command.CreateFullVoteCommand;
 import be.ifapme.election.command.CreateVoteCommand;
 import be.ifapme.election.dto.VoteDto;
 import be.ifapme.election.model.*;
-import be.ifapme.election.repository.CandidatRepository;
-import be.ifapme.election.repository.ElectionRepository;
-import be.ifapme.election.repository.ErreurJsonRepository;
-import be.ifapme.election.repository.VoteRepository;
+import be.ifapme.election.repository.*;
 import be.ifapme.election.service.ElectionService;
 import be.ifapme.election.service.PersonService;
 import be.ifapme.election.service.VoteService;
 import be.ifapme.election.utils.ModelMapperUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +40,7 @@ public class VoteServiceImpl implements VoteService {
     private final ErreurJsonRepository erreurJsonRepository;
 
 
-    public VoteServiceImpl(VoteRepository voteRepository, PersonService personService, ElectionService electionService, CandidatRepository candidatRepository, ResourceLoader resourceLoader, ErreurJsonRepository erreurJsonRepository, ElectionRepository electionRepository) {
+    public VoteServiceImpl(VoteRepository voteRepository, PersonService personService, ElectionService electionService, CandidatRepository candidatRepository, ResourceLoader resourceLoader, ErreurJsonRepository erreurJsonRepository, ElectionRepository electionRepository, PersonRepository personRepository) {
         this.voteRepository = voteRepository;
         this.personService = personService;
         this.electionService = electionService;
@@ -54,37 +53,47 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public VoteDto createvote(CreateVoteCommand command) throws BusinessException {
-        Election election = electionService.findById(command.getElectionId());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Personne personne = personService.findByUserName(username);
+        CreateFullVoteCommand fullComand = CreateFullVoteCommand.builder()
+                .candidatElectionId(command.getCandidatElectionId())
+                .candidatPersonId(command.getCandidatPersonId())
+                .personneId(personne.getId())
+                .dateVote(LocalDateTime.now()).build();
+        return this.createvote(fullComand);
+    }
+
+    @Override
+    public VoteDto createvote(CreateFullVoteCommand command) throws BusinessException {
+        Election election = electionService.findById(command.getCandidatElectionId());
         // modif pour faire une une verification
         if (election == null) {
-            throw new ElectionNotFoundException(command.getElectionId());
+            throw new ElectionNotFoundException(command.getCandidatElectionId());
         }
-
-        Personne personne = personService.findById(command.getPersonneId());
-        // modif pour faire une une verification
-        if (personne == null) {
-            throw new PersonneNotFoundException(command.getPersonneId());
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Personne personneVotante = personService.findById(command.getPersonneId());
+        if (personneVotante == null) {
+            throw new NullVotantException();
         }
-
-        if (!election.getCodePays().equalsIgnoreCase(personne.getAdresse().getCodePays())) {
+        if (!election.getCodePays().equalsIgnoreCase(personneVotante.getAdresse().getCodePays())) {
             throw new NotSameCodeException();
         }
 
         VoteId voteId = new VoteId();
-        voteId.setPersonneId(command.getPersonneId());
-        voteId.setElectionId(command.getElectionId());
+        voteId.setPersonneId(personneVotante.getId());
+        voteId.setElectionId(command.getCandidatElectionId());
 
-        CandidatId candidatId = new CandidatId();
-        candidatId.setElectionId(command.getElectionId());
-        candidatId.setPersonneId(command.getCandidatId());
+        CandidatId candidatId = CandidatId.builder()
+                .electionId(command.getCandidatElectionId())
+                .personneId(command.getCandidatPersonId()).build();
 
         Candidat aEteVote = candidatRepository.findById(candidatId).orElse(null);
-        Election electionCourrante = electionRepository.findById(command.getElectionId()).orElse(null);
+        Election electionCourrante = electionRepository.findById(command.getCandidatElectionId()).orElse(null);
         if(command.getDateVote() == null){
             command.setDateVote(LocalDateTime.now());
         }
         if(electionCourrante.getDateLimite().isBefore(command.getDateVote())) {
-            throw new ElectionFinishedException(command.getElectionId(), electionCourrante.getDateLimite());
+            throw new ElectionFinishedException(command.getCandidatElectionId(), electionCourrante.getDateLimite());
         }
 
         if (aEteVote == null) {
@@ -94,7 +103,7 @@ public class VoteServiceImpl implements VoteService {
         Vote aDejaVote = voteRepository.findById(voteId).orElse(null);
 
         if(aDejaVote != null){
-            throw new AlreadyVotedException(personne.getNom(), personne.getPrenom());
+            throw new AlreadyVotedException(personneVotante.getNom(), personneVotante.getPrenom());
         }
 
         aEteVote.setVote(aEteVote.getVote() + 1);
@@ -102,10 +111,8 @@ public class VoteServiceImpl implements VoteService {
 
         Vote createvote = Vote.builder()
                 .id(voteId)
-                .personne(personne)
+                .personne(personneVotante)
                 .election(election).build();
-
-
 
         Vote savedVote = voteRepository.save(createvote);
 
@@ -138,11 +145,11 @@ public class VoteServiceImpl implements VoteService {
             // Traiter les données JSON et les convertir en entités Vote
             for (VoteJson voteJson : votesArray) {
                 try {
-                    CreateVoteCommand command = new CreateVoteCommand();
-                    command.setPersonneId(voteJson.getPersonneId());
-                    command.setElectionId(voteJson.getElectionId());
-                    command.setCandidatId(voteJson.getCandidatId());
-
+                    CreateFullVoteCommand command =
+                            CreateFullVoteCommand.builder()
+                            .personneId(voteJson.getPersonneId())
+                            .candidatPersonId(voteJson.getCandidatId())
+                            .candidatElectionId(voteJson.getElectionId()).build();
                     this.createvote(command);
                 } catch (BusinessException e) {
                     // Sauvegarder l'erreur dans la base

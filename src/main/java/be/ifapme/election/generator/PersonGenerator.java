@@ -2,6 +2,7 @@ package be.ifapme.election.generator;
 
 import be.ifapme.election.command.CreatePersonCommand;
 import be.ifapme.election.service.AdresseService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -27,7 +28,9 @@ public class PersonGenerator {
         command.setPrenom(generateRandomFirstName());
         command.setRegistreNational(generateRandomRegistreNational());
         command.setAdresseId(generateRandomAddressId());
-
+        command.setPassword(
+                new BCryptPasswordEncoder().encode("test123")
+        );
         return command;
     }
 
@@ -54,9 +57,8 @@ public class PersonGenerator {
         return sb.toString();
     }
 
-    // Récupère un ID d'adresse valide depuis la base de données
     private Integer generateRandomAddressId() {
-        return adresseService.getRandomAdresse();  // Appel au service pour obtenir un ID d'adresse
+        return adresseService.getRandomAdresseId();
     }
 
 }

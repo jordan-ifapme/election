@@ -54,7 +54,7 @@ public class CreateFile {
                 row.createCell(j).setCellValue(fields[j].get(objects.get(i)).toString());
             }
         }
-
+        new File(filePath).mkdirs();
         FileOutputStream out = new FileOutputStream(filePath + createFileName(objects) + ".xlsx");
         workbook.write(out);
         out.close();
@@ -69,6 +69,7 @@ public class CreateFile {
 
         Class<?> clazz = objects.getFirst().getClass();
         Field[] fields = clazz.getDeclaredFields();
+        new File(filePath).mkdirs();
         File file = new File(filePath + createFileName(objects) + ".csv");
         FileWriter outputFile = new FileWriter(file);
 
@@ -91,7 +92,7 @@ public class CreateFile {
         writer.close();
     }
 
-    public static Document createPDF(Election election, Personne personne) throws FileNotFoundException, DocumentException {
+    public static Document createPDF(Election election, Personne personne) throws IOException, DocumentException {
         Document document = new Document();
         new File(election.getNom()).mkdirs();
 
