@@ -45,7 +45,7 @@ public class CountryServiceImpl implements CountryService {
 
         JsonNode nationalIcon = jsonNode.get("coatOfArms");
 
-        if (nationalIcon == null) {
+        if (nationalIcon.isEmpty()) {
             nationalIcon = jsonNode.get("flags").get("png");
         } else {
             nationalIcon = nationalIcon.get("png");
