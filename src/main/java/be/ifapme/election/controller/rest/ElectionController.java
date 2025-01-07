@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/election")
+@RequestMapping("/api/election")
 public class ElectionController {
     private final ElectionService electionService;
 

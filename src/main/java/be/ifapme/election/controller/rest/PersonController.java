@@ -3,7 +3,6 @@ package be.ifapme.election.controller.rest;
 import be.ifapme.election.Exception.BusinessException;
 import be.ifapme.election.command.CreatePersonCommand;
 import be.ifapme.election.dto.PersonDto;
-import be.ifapme.election.generator.PersonGenerator;
 import be.ifapme.election.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +13,9 @@ import java.util.List;
 public class PersonController {
 
     private final PersonService personService;
-    private final PersonGenerator personGenerator;
 
-    public PersonController(PersonService personService, PersonGenerator personGenerator) {
+    public PersonController(PersonService personService) {
         this.personService = personService;
-        this.personGenerator = personGenerator;
     }
 
 
@@ -27,11 +24,9 @@ public class PersonController {
         return personService.createPerson(person);
     }
 
-    // generation de personne
     @PostMapping("/generate/{nbrs}")
     public List<PersonDto> generateRandomPersons(@PathVariable int nbrs) throws BusinessException {
         return personService.generateRandomPersons(nbrs);
     }
-
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("csv")
+@RequestMapping("/api/csv")
 public class CreateCsvFileController {
     private final CsvService csvService;
 

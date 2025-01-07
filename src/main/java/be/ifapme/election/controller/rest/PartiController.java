@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/parti")
 public class PartiController {
     private final PartiService partiService;
+
     public PartiController(PartiService partiService) {
         this.partiService = partiService;
     }
