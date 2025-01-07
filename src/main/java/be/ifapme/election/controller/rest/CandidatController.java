@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/candidat")
 public class CandidatController {
-    private CandidatService candidatService;
+    private final CandidatService candidatService;
 
     public CandidatController(CandidatService candidatService) {
         this.candidatService = candidatService;

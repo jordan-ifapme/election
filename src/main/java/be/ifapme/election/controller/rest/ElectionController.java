@@ -1,7 +1,6 @@
 package be.ifapme.election.controller.rest;
 
 import be.ifapme.election.Exception.BusinessException;
-import be.ifapme.election.Exception.NotFoundCodeCountryException;
 import be.ifapme.election.command.CreateElectionCommand;
 import be.ifapme.election.dto.ElectionDto;
 import be.ifapme.election.service.ElectionService;
@@ -23,7 +22,7 @@ public class ElectionController {
     }
 
     @PostMapping
-   public ElectionDto createElection(@RequestBody CreateElectionCommand command) throws BusinessException, DocumentException, IOException {
+    public ElectionDto createElection(@RequestBody CreateElectionCommand command) throws BusinessException, DocumentException, IOException {
         return electionService.create(command);
     }
 }

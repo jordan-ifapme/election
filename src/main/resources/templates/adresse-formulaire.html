@@ -7,7 +7,7 @@
     <h1>Adresse formulaire</h1>
     <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
 
-    <form th:action="@{/view/adresse}" th:object="${createAdresseCommand}" method="post" class="mt-4">
+    <form th:action="@{/admin/view/adresse}" th:object="${createAdresseCommand}" method="post" class="mt-4">
         <div class="mb-3">
             <label for="rue" class="form-label">Rue</label>
             <input required type="text" id="rue" class="form-control" th:field="*{rue}" placeholder="Entrez la rue">
