@@ -1,0 +1,1 @@
+ALTER TABLE `personne` ADD `birth_date` DATETIME NULL AFTER `is_admin`, ADD `gender` VARCHAR(50) NULL AFTER `birth_date`; 
