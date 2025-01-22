@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "personne")
 @Data
@@ -31,10 +33,16 @@ public class Personne {
     @JoinColumn(name = "adresse_id")
     private Adresse adresse;
 
-    @Column(name= "password")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "is_admin")
     private Boolean is_admin;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "birth_date")
+    private Date birthDate;
 
 }

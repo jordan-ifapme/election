@@ -12,6 +12,10 @@ import be.ifapme.election.service.CandidatService;
 import be.ifapme.election.utils.ModelMapperUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+
 @Service
 public class CandidatServiceImpl implements CandidatService {
     private final PersonRepository personRepository;
@@ -32,6 +36,13 @@ public class CandidatServiceImpl implements CandidatService {
         if (personne == null) {
             throw new PersonneNotFoundException(command.getPersonneId());
         }
+
+        LocalDate birthDate = personne.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
+        if (age < 18) {
+            throw new PersonneNotMajorException();
+        }
+
         Election election = electionRepository.findById(command.getElectionId()).orElse(null);
         if (election == null) {
             throw new ElectionNotFoundException(command.getElectionId());

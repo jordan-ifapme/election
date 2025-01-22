@@ -15,4 +15,6 @@ public interface PersonService {
     List<PersonDto> generateRandomPersons(int nbrs) throws BusinessException;
 
     Personne findByUserName(String username) throws BusinessException;
+
+    String modifyPerson(int id) throws BusinessException;
 }
