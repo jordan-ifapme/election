@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "personne")
 @Data
@@ -34,7 +36,14 @@ public class Personne {
     @Column(name= "password")
     private String password;
 
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @Column(name = "gender")
+    private String gender;
+
     @Column(name = "is_admin")
     private Boolean is_admin;
+
 
 }

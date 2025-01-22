@@ -1,22 +1,24 @@
 package be.ifapme.election.service.impl;
 
-import be.ifapme.election.Exception.AdressNotFoundException;
-import be.ifapme.election.Exception.BusinessException;
+import be.ifapme.election.Exception.*;
 import be.ifapme.election.command.CreatePersonCommand;
 import be.ifapme.election.dto.PersonDto;
 import be.ifapme.election.generator.PersonGenerator;
 import be.ifapme.election.model.Adresse;
 import be.ifapme.election.model.Personne;
+import be.ifapme.election.model.PersonneApi;
 import be.ifapme.election.repository.AdresseRepository;
 import be.ifapme.election.repository.PersonRepository;
 import be.ifapme.election.service.PersonService;
 import be.ifapme.election.utils.ModelMapperUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -37,22 +39,45 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDto createPerson(CreatePersonCommand command) throws BusinessException {
-        Adresse adresse = adresseRepository.findById(command.getAdresseId()).orElse(null);
 
-        if (adresse == null) {
+        if (command.getRegistreNational() == null || command.getRegistreNational().length() != 8) {
+            throw new NationalNumberException();
+        }
+        if (personRepository.findByRegistreNational(command.getRegistreNational()).isPresent()) {
+            throw new NationalNumberAlreadyExistException();
+        }
+        // chance de 10% de pas fonctionner
+        if (Math.random() < 0.1) {
+            throw new NationalNumberAlreadyExistException();
+        }
+
+        String serviceUrl = "https://personne-express.onrender.com/api/person/" + command.getRegistreNational();
+        RestTemplate restTemplate = new RestTemplate();
+        PersonneApi personneApi;
+        try {
+            personneApi = restTemplate.getForObject(serviceUrl, PersonneApi.class);
+        } catch (Exception e) {
+            throw new BusinessException("Erreur lors de l'appel au service externe : " + e.getMessage());
+        }
+
+        if (command.getAdresseId() == null) {
             throw new AdressNotFoundException();
         }
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(command.getPassword());
+
+        Adresse adresse = adresseRepository.findById(command.getAdresseId()).orElseThrow(AdressNotFoundException::new);
+
 
         Personne person = Personne.builder()
-                .nom(command.getNom())
-                .prenom(command.getPrenom())
+                .nom(personneApi.getLastName())
+                .prenom(personneApi.getFirstName())
                 .registreNational(command.getRegistreNational())
+                .birthDate(personneApi.getBirthDate())
+                .gender(personneApi.getGender())
                 .adresse(adresse)
-                .password(encodedPassword)
+                .password(new BCryptPasswordEncoder().encode(command.getPassword()))
                 .is_admin(false)
                 .build();
+
         Personne personSaved = personRepository.save(person);
         return ModelMapperUtils
                 .getInstance()

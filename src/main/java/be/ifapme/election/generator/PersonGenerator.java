@@ -24,8 +24,6 @@ public class PersonGenerator {
     public CreatePersonCommand generateRandomPerson() {
         // Génération de données aléatoires pour la commande
         CreatePersonCommand command = new CreatePersonCommand();
-        command.setNom(generateRandomName());
-        command.setPrenom(generateRandomFirstName());
         command.setRegistreNational(generateRandomRegistreNational());
         command.setAdresseId(generateRandomAddressId());
         command.setPassword(
@@ -35,26 +33,9 @@ public class PersonGenerator {
     }
 
 
-
-    private String generateRandomName() {
-        String[] lastNames = {"Dupont", "Martin", "Bernard", "Dubois", "Lefevre"};
-        return lastNames[random.nextInt(lastNames.length)];
-    }
-
-    private String generateRandomFirstName() {
-        String[] firstNames = {"Jean", "Pierre", "Marie", "Sophie", "Claude"};
-        return firstNames[random.nextInt(firstNames.length)];
-    }
-
     private String generateRandomRegistreNational() {
-        // Génère un numéro à 12 chiffres
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
-            sb.append(String.format("%02d", random.nextInt(100))).append("");
-        }
-        sb.append(String.format("%03d", random.nextInt(1000))).append("");
-        sb.append(String.format("%02d", random.nextInt(100))).append("");
-        return sb.toString();
+
+        return String.format("%08d", random.nextInt(100000000));
     }
 
     private Integer generateRandomAddressId() {
