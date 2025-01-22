@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container mt-5 mx-auto" style="max-width: 600px;">
-    <h1>Ajouter un Candidat</h1>
+<!--    <h1>Ajouter un Candidat</h1>-->
     <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
     <form th:action="@{/admin/view/candidat}" th:object="${candidat}" method="post" class="mt-4 mx-auto">
         <div class="mb-3">
