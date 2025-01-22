@@ -24,8 +24,6 @@ public class PersonGenerator {
     public CreatePersonCommand generateRandomPerson() {
         // Génération de données aléatoires pour la commande
         CreatePersonCommand command = new CreatePersonCommand();
-        command.setNom(generateRandomName());
-        command.setPrenom(generateRandomFirstName());
         command.setRegistreNational(generateRandomRegistreNational());
         command.setAdresseId(generateRandomAddressId());
         command.setPassword(

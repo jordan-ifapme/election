@@ -24,6 +24,11 @@ public class PersonController {
         return personService.createPerson(person);
     }
 
+    @PutMapping("/{id}")
+    public String createPerson(@PathVariable int id) throws BusinessException {
+        return personService.modifyPerson(id);
+    }
+
     @PostMapping("/generate/{nbrs}")
     public List<PersonDto> generateRandomPersons(@PathVariable int nbrs) throws BusinessException {
         return personService.generateRandomPersons(nbrs);
